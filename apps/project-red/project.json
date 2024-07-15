@@ -1,0 +1,9 @@
+{
+  "name": "project-red",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/project-red/src",
+  "projectType": "application",
+  "tags": [],
+  "// targets": "to see all targets run: nx show project project-red --web",
+  "targets": {}
+}
