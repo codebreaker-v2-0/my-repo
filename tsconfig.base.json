@@ -15,6 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@design-system": ["libs/design-system/src/index.ts"],
       "@project-red": ["libs/project-red/src/index.ts"]
     }
   },
