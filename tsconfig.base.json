@@ -15,6 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@common-components": ["libs/common-components/src/index.ts"],
       "@design-system": ["libs/design-system/src/index.ts"],
       "@project-red": ["libs/project-red/src/index.ts"]
     }
