@@ -1,19 +1,46 @@
-import React from 'react';
-import { observer } from 'mobx-react';
 import cn from 'classnames';
+import { observer } from 'mobx-react';
+import React, { useMemo } from 'react';
 
-import * as Styles from './styles';
+import { Enhancer, Size, Variant } from '../../types';
 
-interface Props {
-  value: string;
+import { getIconPropsBasedOnVariant, getSizeBasedStyles } from './styles';
+
+interface Props
+  extends React.DetailedHTMLProps<
+    React.ButtonHTMLAttributes<HTMLButtonElement>,
+    HTMLButtonElement
+  > {
+  size?: Size;
+  variant?: Variant;
+  children: React.ReactNode;
+  leftEnhancer?: Enhancer;
+  rightEnhancer?: Enhancer;
 }
 
 const Button = (props: Props): React.ReactElement => {
-  const { value } = props;
+  const {
+    size = Size.Small,
+    variant = Variant.Primary,
+    children,
+    leftEnhancer,
+    rightEnhancer,
+    ...buttonProps
+  } = props;
 
-  console.log('Rendering Button');
+  const sizeBasedStyles = useMemo(() => getSizeBasedStyles(size), [size]);
+  const iconProps = useMemo(
+    () => getIconPropsBasedOnVariant(variant),
+    [variant]
+  );
 
-  return <div>Button</div>;
+  return (
+    <button className={cn(sizeBasedStyles)} {...buttonProps}>
+      {leftEnhancer?.(iconProps)}
+      {props.children}
+      {rightEnhancer?.(iconProps)}
+    </button>
+  );
 };
 
 export default observer(Button);
