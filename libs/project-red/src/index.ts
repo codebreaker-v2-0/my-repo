@@ -1,1 +1,2 @@
-export { default as Dummy } from './components/Dummy';
+// Routes
+export * from './routes';
