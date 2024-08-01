@@ -11,7 +11,8 @@ export interface BaseFormItem<T> {
   placeholder?: string;
   errorMessage?: string;
   isMasked?: boolean;
-  onChange?: (value?: T) => boolean | void;
+  value?: T;
+  onChange?: (value?: T) => void;
   validate?: (value?: T) => ValidationResponse;
 }
 
@@ -23,7 +24,7 @@ export interface EmailFormItem extends BaseFormItem<string> {
   type: FormItemType.Email;
 }
 
-export interface NumberFormItem extends BaseFormItem<string> {
+export interface NumberFormItem extends BaseFormItem<number> {
   type: FormItemType.Number;
 }
 
