@@ -1,10 +1,10 @@
 import { observer } from 'mobx-react';
 import React from 'react';
 
-const RegisterRoute = (): React.ReactElement => {
-  console.log('Rendering RegisterRoute');
+import RegisterController from '../controller/RegisterController/RegisterController';
 
-  return <div>RegisterRoute</div>;
+const RegisterRoute = (): React.ReactElement => {
+  return <RegisterController />;
 };
 
 export default observer(RegisterRoute);
