@@ -10,14 +10,16 @@ export interface BaseFormItem<T> {
   label?: string;
   placeholder?: string;
   errorMessage?: string;
-  isMasked?: boolean;
   value?: T;
   onChange?: (value?: T) => void;
   validate?: (value?: T) => ValidationResponse;
+  onBlur?: () => void;
+  isRequired?: boolean;
 }
 
 export interface TextFormItem extends BaseFormItem<string> {
   type: FormItemType.Text;
+  isMasked?: boolean;
 }
 
 export interface EmailFormItem extends BaseFormItem<string> {

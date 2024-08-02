@@ -15,6 +15,8 @@ interface Props
   label?: string;
   containerClassName?: string;
   inputClassName?: string;
+  hint?: string;
+  errorMessage?: string;
 }
 
 const TextInput = (props: Props): React.ReactElement => {
@@ -25,10 +27,10 @@ const TextInput = (props: Props): React.ReactElement => {
     label,
     inputClassName,
     containerClassName,
+    hint,
+    errorMessage,
     ...otherProps
   } = props;
-
-  console.log('Rendering TextInput');
 
   const inputId = useId();
 
@@ -36,17 +38,26 @@ const TextInput = (props: Props): React.ReactElement => {
     onChange?.(e.target.value);
   };
 
+  const renderHintOrError = (): React.ReactNode =>
+    errorMessage ? (
+      <span className="text-red-500 text-xs font-regular">*{errorMessage}</span>
+    ) : hint ? (
+      <span className="text-gray-500 text-xs font-regular">*{hint}</span>
+    ) : null;
+
   return (
     <div className={cn(Styles.container, containerClassName)}>
-      <label htmlFor={inputId}>{label}</label>
+      <label htmlFor={inputId} className={cn(Styles.label)}>
+        {label}
+      </label>
       <input
         {...otherProps}
         id={inputId}
         value={value}
         onChange={handleChange}
-        className={inputClassName}
+        className={cn(Styles.input, inputClassName)}
       />
-      ;
+      {renderHintOrError()}
     </div>
   );
 };

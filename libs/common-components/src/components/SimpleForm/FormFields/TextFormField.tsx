@@ -1,17 +1,39 @@
-import React from 'react';
 import { observer } from 'mobx-react';
-import cn from 'classnames';
+import React from 'react';
 
-interface Props {
-  value: string;
+import { TextInput } from '@design-system';
+
+import { TextFormItem } from '../../../types/FormTypes';
+
+interface Props extends TextFormItem {
+  inputClassName?: string;
+  containerClassName?: string;
 }
 
 const TextFormField = (props: Props): React.ReactElement => {
-  const { value } = props;
+  const {
+    label,
+    placeholder,
+    value,
+    onChange,
+    inputClassName,
+    containerClassName,
+    isMasked,
+    errorMessage,
+  } = props;
 
-  console.log('Rendering TextFormField');
-
-  return <div>TextFormField</div>;
+  return (
+    <TextInput
+      label={label}
+      placeholder={placeholder}
+      value={value}
+      onChange={onChange}
+      inputClassName={inputClassName}
+      containerClassName={containerClassName}
+      type={isMasked ? 'password' : 'text'}
+      errorMessage={errorMessage}
+    />
+  );
 };
 
 export default observer(TextFormField);
