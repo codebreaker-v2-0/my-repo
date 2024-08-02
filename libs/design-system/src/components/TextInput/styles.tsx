@@ -1,1 +1,1 @@
-export const container = '';
+export const container = 'flex flex-col';
