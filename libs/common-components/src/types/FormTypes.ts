@@ -4,6 +4,7 @@ export enum FormItemType {
   Text = 'TEXT',
   Email = 'EMAIL',
   Number = 'NUMBER',
+  Button = 'BUTTON',
 }
 
 export interface BaseFormItem<T> {

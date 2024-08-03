@@ -36,3 +36,18 @@ export const getIconPropsBasedOnVariant = (variant: Variant): IconProps => {
 
   return { color };
 };
+
+export const getButtonStylesBasedOnVariant = (variant: Variant): string => {
+  switch (variant) {
+    case Variant.Primary:
+      return 'bg-primary-500';
+    case Variant.Success:
+      return 'bg-success-500';
+    case Variant.Warning:
+      return 'bg-warning-500';
+    case Variant.Error:
+      return 'bg-error-500';
+    case Variant.Gray:
+      return 'bg-gray-500';
+  }
+};

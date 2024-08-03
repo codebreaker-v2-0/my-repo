@@ -4,7 +4,11 @@ import React, { useMemo } from 'react';
 
 import { Enhancer, Size, Variant } from '../../types';
 
-import { getIconPropsBasedOnVariant, getSizeBasedStyles } from './styles';
+import {
+  getButtonStylesBasedOnVariant,
+  getIconPropsBasedOnVariant,
+  getSizeBasedStyles,
+} from './styles';
 
 interface Props
   extends React.DetailedHTMLProps<
@@ -33,9 +37,13 @@ const Button = (props: Props): React.ReactElement => {
     () => getIconPropsBasedOnVariant(variant),
     [variant]
   );
+  const buttonStyles = useMemo(
+    () => getButtonStylesBasedOnVariant(variant),
+    [variant]
+  );
 
   return (
-    <button className={cn(sizeBasedStyles)} {...buttonProps}>
+    <button className={cn(sizeBasedStyles, buttonStyles)} {...buttonProps}>
       {leftEnhancer?.(iconProps)}
       {props.children}
       {rightEnhancer?.(iconProps)}

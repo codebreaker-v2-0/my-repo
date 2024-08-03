@@ -3,6 +3,7 @@ import { observer } from 'mobx-react';
 import React, { useState } from 'react';
 
 import { FormItem, FormItemType, SimpleForm } from '@common-components';
+import { Button } from '@design-system';
 
 import * as CommonStyles from '../../styles/commonStyles';
 
@@ -65,6 +66,7 @@ const RegisterController = (): React.ReactElement => {
         items={formItems}
         containerClassName="w-[300px] flex flex-col gap-3"
       />
+      <Button>Register</Button>
     </div>
   );
 };
