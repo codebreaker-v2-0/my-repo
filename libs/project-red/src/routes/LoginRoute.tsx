@@ -1,11 +1,10 @@
 import { observer } from 'mobx-react';
-
 import React from 'react';
 
-const LoginRoute = (): React.ReactElement => {
-  console.log('Rendering LoginRoute');
+import LoginController from '../controller/LoginController/LoginController';
 
-  return <div>LoginRoute</div>;
+const LoginRoute = (): React.ReactElement => {
+  return <LoginController />;
 };
 
 export default observer(LoginRoute);

@@ -4,11 +4,7 @@ import React, { useMemo } from 'react';
 
 import { Enhancer, Size, Variant } from '../../types';
 
-import {
-  getButtonStylesBasedOnVariant,
-  getIconPropsBasedOnVariant,
-  getSizeBasedStyles,
-} from './styles';
+import * as Styles from './styles';
 
 interface Props
   extends React.DetailedHTMLProps<
@@ -32,20 +28,31 @@ const Button = (props: Props): React.ReactElement => {
     ...buttonProps
   } = props;
 
-  const sizeBasedStyles = useMemo(() => getSizeBasedStyles(size), [size]);
+  const sizeBasedStyles = useMemo(
+    () => Styles.getSizeBasedStyles(size),
+    [size]
+  );
   const iconProps = useMemo(
-    () => getIconPropsBasedOnVariant(variant),
+    () => Styles.getIconPropsBasedOnVariant(variant),
     [variant]
   );
   const buttonStyles = useMemo(
-    () => getButtonStylesBasedOnVariant(variant),
+    () => Styles.getButtonStylesBasedOnVariant(variant),
     [variant]
   );
 
   return (
-    <button className={cn(sizeBasedStyles, buttonStyles)} {...buttonProps}>
+    <button
+      {...buttonProps}
+      className={cn(
+        Styles.commonButtonStyles,
+        sizeBasedStyles,
+        buttonStyles,
+        props.className
+      )}
+    >
       {leftEnhancer?.(iconProps)}
-      {props.children}
+      <span className="flex-1">{props.children}</span>
       {rightEnhancer?.(iconProps)}
     </button>
   );

@@ -5,14 +5,11 @@ import React, { useState } from 'react';
 import { FormItem, FormItemType, SimpleForm } from '@common-components';
 import { Button } from '@design-system';
 
-import { LOGIN_PATH } from '../../constants/routeConstants';
 import * as CommonStyles from '../../styles/commonStyles';
 
 import * as Styles from './styles';
 
-interface RegisterFormstate {
-  name: string;
-  nameErrorMsg?: string;
+interface LoginFormstate {
   email: string;
   emailErrorMsg?: string;
   password: string;
@@ -20,20 +17,12 @@ interface RegisterFormstate {
   showPassword: boolean;
 }
 
-const RegisterController = (): React.ReactElement => {
-  const [formState, setFormState] = useState<RegisterFormstate>({
-    name: '',
+const AdminLoginController = (): React.ReactElement => {
+  const [formState, setFormState] = useState<LoginFormstate>({
     email: '',
     password: '',
     showPassword: false,
   });
-
-  const onChangeName = (value?: string) => {
-    setFormState({
-      ...formState,
-      name: value || '',
-    });
-  };
 
   const onChangeEmail = (value?: string) => {
     setFormState({
@@ -50,14 +39,6 @@ const RegisterController = (): React.ReactElement => {
   };
 
   const formItems: FormItem[] = [
-    {
-      type: FormItemType.Text,
-      label: 'Name',
-      placeholder: 'Enter your name',
-      value: formState.name,
-      errorMessage: formState.nameErrorMsg,
-      onChange: onChangeName,
-    },
     {
       type: FormItemType.Email,
       label: 'Email',
@@ -82,25 +63,19 @@ const RegisterController = (): React.ReactElement => {
       className={cn(CommonStyles.pageContainerStyles, Styles.containerStyles)}
     >
       <div className={Styles.cardStyles}>
-        <div>
-          <h3 className="text-lg font-semibold">Welcome to E-Commerce</h3>
-          <p className="text-sm font-regular">Please register your account</p>
-        </div>
+        <img
+          src="src/assets/images/logo.png"
+          alt="logo"
+          className="w-[150px] mx-auto"
+        />
         <SimpleForm
           items={formItems}
           containerClassName="flex flex-col gap-3"
         />
-        <Button className="w-full text-center">Sign Up</Button>
-
-        <p className="text-gray-600 text-sm font-regular text-center">
-          <span>Already have an account?</span>{' '}
-          <a href={LOGIN_PATH} className="text-gray-800 font-semibold">
-            Sign in
-          </a>
-        </p>
+        <Button className="w-full text-center">Login</Button>
       </div>
     </div>
   );
 };
 
-export default observer(RegisterController);
+export default observer(AdminLoginController);
