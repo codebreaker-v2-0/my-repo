@@ -5,7 +5,9 @@ import React, { useState } from 'react';
 import { FormItem, FormItemType, SimpleForm } from '@common-components';
 import { Button } from '@design-system';
 
+import { ADMIN_LOGIN_URL } from '../../constants/apiConstants';
 import * as CommonStyles from '../../styles/commonStyles';
+import { api } from '../../utils/api';
 
 import * as Styles from './styles';
 
@@ -23,6 +25,22 @@ const AdminLoginController = (): React.ReactElement => {
     password: '',
     showPassword: false,
   });
+
+  const onSubmit = async (): Promise<void> => {
+    const { email, password, emailErrorMsg, passwordErrorMessage } = formState;
+
+    const isValid =
+      !!email && !!password && !emailErrorMsg && !passwordErrorMessage;
+
+    if (!isValid) return;
+
+    const loginDetails = { email, password };
+
+    const response = await api.post(ADMIN_LOGIN_URL, loginDetails, {
+      withCredentials: true,
+    });
+    console.log(response);
+  };
 
   const onChangeEmail = (value?: string) => {
     setFormState({
@@ -72,7 +90,9 @@ const AdminLoginController = (): React.ReactElement => {
           items={formItems}
           containerClassName="flex flex-col gap-3"
         />
-        <Button className="w-full text-center">Login</Button>
+        <Button className="w-full text-center" onClick={onSubmit}>
+          Login
+        </Button>
       </div>
     </div>
   );
