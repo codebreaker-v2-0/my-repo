@@ -5,9 +5,9 @@ import React, { useState } from 'react';
 import { FormItem, FormItemType, SimpleForm } from '@common-components';
 import { Button } from '@design-system';
 
-import { ADMIN_LOGIN_URL } from '../../constants/apiConstants';
+import useAdminLogin from '../../apis/AdminLogin/useAdminLogin';
+import { AdminLoginParams } from '../../schema';
 import * as CommonStyles from '../../styles/commonStyles';
-import { api } from '../../utils/api';
 
 import * as Styles from './styles';
 
@@ -26,6 +26,8 @@ const AdminLoginController = (): React.ReactElement => {
     showPassword: false,
   });
 
+  const adminLoginAPI = useAdminLogin();
+
   const onSubmit = async (): Promise<void> => {
     const { email, password, emailErrorMsg, passwordErrorMessage } = formState;
 
@@ -34,12 +36,14 @@ const AdminLoginController = (): React.ReactElement => {
 
     if (!isValid) return;
 
-    const loginDetails = { email, password };
+    const reqObj: AdminLoginParams = { email, password };
 
-    const response = await api.post(ADMIN_LOGIN_URL, loginDetails, {
-      withCredentials: true,
+    adminLoginAPI.triggerAPI({
+      reqObj,
+      onFailure(errorMessage) {
+        console.log(errorMessage);
+      },
     });
-    console.log(response);
   };
 
   const onChangeEmail = (value?: string) => {
@@ -90,7 +94,11 @@ const AdminLoginController = (): React.ReactElement => {
           items={formItems}
           containerClassName="flex flex-col gap-3"
         />
-        <Button className="w-full text-center" onClick={onSubmit}>
+        <Button
+          className="w-full text-center"
+          onClick={onSubmit}
+          isLoading={adminLoginAPI.isPending}
+        >
           Login
         </Button>
       </div>

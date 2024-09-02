@@ -1,7 +1,9 @@
 import cn from 'classnames';
 import { observer } from 'mobx-react';
 import React, { useMemo } from 'react';
+import { BeatLoader } from 'react-spinners';
 
+import { colors } from '../../constants/colors';
 import { Enhancer, Size, Variant } from '../../types';
 
 import * as Styles from './styles';
@@ -16,6 +18,7 @@ interface Props
   children: React.ReactNode;
   leftEnhancer?: Enhancer;
   rightEnhancer?: Enhancer;
+  isLoading?: boolean;
 }
 
 const Button = (props: Props): React.ReactElement => {
@@ -25,6 +28,7 @@ const Button = (props: Props): React.ReactElement => {
     children,
     leftEnhancer,
     rightEnhancer,
+    isLoading,
     ...buttonProps
   } = props;
 
@@ -41,6 +45,20 @@ const Button = (props: Props): React.ReactElement => {
     [variant]
   );
 
+  const renderContent = (): React.ReactElement => (
+    <>
+      {leftEnhancer?.(iconProps)}
+      <span className="flex-1">{props.children}</span>
+      {rightEnhancer?.(iconProps)}
+    </>
+  );
+
+  const renderLoader = (): React.ReactElement => (
+    <div className="w-full flex justify-center">
+      <BeatLoader color={colors['base-white']} size={8} />
+    </div>
+  );
+
   return (
     <button
       {...buttonProps}
@@ -51,9 +69,7 @@ const Button = (props: Props): React.ReactElement => {
         props.className
       )}
     >
-      {leftEnhancer?.(iconProps)}
-      <span className="flex-1">{props.children}</span>
-      {rightEnhancer?.(iconProps)}
+      {isLoading ? renderLoader() : renderContent()}
     </button>
   );
 };
