@@ -15,11 +15,12 @@ export type AdminLoginResponse =
 // region Types
 export interface AdminLoginResult {
   _typename: 'AdminLoginResult';
-  token: string;
+  accessToken: string;
 }
 
 export interface EmailNotFound {
   _typename: 'EmailNotFound';
+  email: string;
 }
 
 export interface PasswordIncorrect {
