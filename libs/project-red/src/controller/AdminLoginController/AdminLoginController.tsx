@@ -1,6 +1,7 @@
 import cn from 'classnames';
 import { observer } from 'mobx-react';
 import React, { useState } from 'react';
+import { toast } from 'react-toastify';
 
 import { FormItem, FormItemType, SimpleForm } from '@common-components';
 import { Button } from '@design-system';
@@ -40,8 +41,13 @@ const AdminLoginController = (): React.ReactElement => {
 
     adminLoginAPI.triggerAPI({
       reqObj,
+      onSuccess() {
+        toast('Login Successful');
+      },
       onFailure(errorMessage) {
-        console.log(errorMessage);
+        toast(errorMessage, {
+          type: 'error',
+        });
       },
     });
   };

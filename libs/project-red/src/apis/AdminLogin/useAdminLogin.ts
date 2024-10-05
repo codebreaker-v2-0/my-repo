@@ -36,7 +36,7 @@ const useAdminLogin = (): ReturnType => {
 
   const triggerAPI = (args: TriggerArgs): void => {
     mutate(args.reqObj, {
-      onSettled(data) {
+      onSuccess(data) {
         if (!data) return;
 
         switch (data._typename) {
